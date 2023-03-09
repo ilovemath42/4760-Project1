@@ -8,6 +8,7 @@
 
 #include "testScanner.h"
 
+
 std::vector<std::string> comment_destroyer(std::vector<std::string> file_txt) {
     std::vector<std::string> commentless_txt;
     
@@ -62,43 +63,34 @@ std::vector<std::string> getting_input(std::string file_name) {
 }
 
 
-void input_to_file(){
-    // function stores user input as a file
-    std::string file_name = "user_input.txt";
-    std::ofstream file;
-    
-    file.open(file_name.c_str());
-    // will take in user input up to specified line amount
-    int line_amount;
+std::vector<std::string> case1_und_case2(){
+    std::vector<std::string> input_text;
     std::string input;
+    
+    while( getline(std::cin, input)) { input_text.push_back(input); }
+    
+    std::vector<std::string> commentless_txt = comment_destroyer(input_text);
+    
+    
+    return commentless_txt;
 
-    std::cout << "How many lines of code do you wish to type out?\n";
-    std::cout << "   - note: blank lines will count as lines -   \n";
-    std::cout << "Your response: ";
-    std::cin >> line_amount;
-    
-    std::cout << "\nPlease type your input below:\n";
-    
-    do {
-      // blank lines are counted
-      getline (std::cin, input);
-      file << input;
-    } while(line_amount--);
-    
-    std::cout << std::endl; // for readability in PuTTy
-    
-    // closing the temp file after writing to it
-    file.close();
     
     
 }
 
-int main() {
+int main(int argc, char** argv) {
     std::vector<std::string> input;
-    //input_to_file();
-    std::string file_name = "test";
     
-    input = getting_input(file_name);
+    if( argc == 1 ) { input = case1_und_case2(); }
+    else if( argc == 2 ) { 
+        std::string file = argv[1];
+        std::string extension = ".sp23";
+        std::string file_name = file + extension;
+        input = getting_input(file_name); 
+    }
+    else { std::cout << "Too many arguments! Please try again.\n"; exit(EXIT_FAILURE); }
+    
+    
     FA_driver(input);
     
     

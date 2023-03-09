@@ -9,7 +9,7 @@
 void error_msg(std::string tk_instance, std::string token_ID, int line_num) {
     if (token_ID.compare("LEXICAL_ERROR") == 0) {
         std::cout << "LEXICAL ERROR: invalid character(s): ";
-        std::cout << tk_instance << " at line #" << line_num;
+        std::cout << tk_instance << " at line #" << line_num << std::endl;
         exit(EXIT_FAILURE);
     }
 }
