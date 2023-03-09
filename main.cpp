@@ -6,7 +6,7 @@
 
 #include<vector>
 
-#include "driver.h"
+#include "testScanner.h"
 
 std::vector<std::string> comment_destroyer(std::vector<std::string> file_txt) {
     std::vector<std::string> commentless_txt;
@@ -34,6 +34,8 @@ std::vector<std::string> comment_destroyer(std::vector<std::string> file_txt) {
         commentless_txt.push_back(new_txt);
         
     }
+    // adding in EOF token at end of input
+    commentless_txt.push_back("'\0'");
     
     return commentless_txt;
 }
@@ -59,9 +61,41 @@ std::vector<std::string> getting_input(std::string file_name) {
     return commentless_txt;
 }
 
+
+void input_to_file(){
+    // function stores user input as a file
+    std::string file_name = "user_input.txt";
+    std::ofstream file;
+    
+    file.open(file_name.c_str());
+    // will take in user input up to specified line amount
+    int line_amount;
+    std::string input;
+
+    std::cout << "How many lines of code do you wish to type out?\n";
+    std::cout << "   - note: blank lines will count as lines -   \n";
+    std::cout << "Your response: ";
+    std::cin >> line_amount;
+    
+    std::cout << "\nPlease type your input below:\n";
+    
+    do {
+      // blank lines are counted
+      getline (std::cin, input);
+      file << input;
+    } while(line_amount--);
+    
+    std::cout << std::endl; // for readability in PuTTy
+    
+    // closing the temp file after writing to it
+    file.close();
+    
+    
+}
+
 int main() {
     std::vector<std::string> input;
-    
+    //input_to_file();
     std::string file_name = "test";
     
     input = getting_input(file_name);

@@ -1,14 +1,15 @@
-main: main.o driver.o FSAT.o testScanner.o tokens.o
-	g++ -o main main.o driver.o FSAT.o testScanner.o tokens.o
+main: main.o scanner.o FSAT.o testScanner.o tokens.o
+	g++ -o main main.o scanner.o FSAT.o testScanner.o tokens.o
 
-main.o: main.cpp driver.h
+main.o: main.cpp testScanner.h
 	g++ -c main.cpp
 
-driver.o: driver.cpp testScanner.h FSAT.h
-	g++ -c driver.cpp
-
-testScanner.o: testScanner.cpp tokens.h
+testScanner.o: testScanner.cpp scanner.h FSAT.h token.h
 	g++ -c testScanner.cpp
+
+
+scanner.o: scanner.cpp tokens.h token.h
+	g++ -c scanner.cpp token.h
 
 FSAT.o: FSAT.cpp
 	g++ -c FSAT.cpp

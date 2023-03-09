@@ -40,6 +40,11 @@ bool state_5(char c) {
     return false;
 }
 
+bool state_6(char c) {
+    if ( c == '\'' ) { return true; } // EOF
+    return false;
+}
+
 int FSA_table(char c) {
     int state = -1;
     // ---------------------------------------------------------------------- //
@@ -48,6 +53,7 @@ int FSA_table(char c) {
     if ( state_3(c) ) { state = 3; } // identifiers 
     if ( state_4(c) ) { state = 4; } // keywords
     if ( state_5(c) ) { state = 5; } // digits
+    if ( state_6(c) ) { state = 6; } // EOF 
     // ---------------------------------------------------------------------- //
     // anything that doesn't exsist in a state is returned as an error (-1)
     return state;
